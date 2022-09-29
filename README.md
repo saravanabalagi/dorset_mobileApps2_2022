@@ -9,3 +9,9 @@ Mobile App developed as part of Dorset Mobile Applications 2 Course for BSc Year
 - Added maps into MainActivity
 - [APK Release](https://github.com/saravanabalagi/dorset_mobileApp2/releases/tag/week2)
 - [Screencast](https://youtu.be/XlmBNTmfrvg)
+
+## Week 3: Location
+- Location Updates Add new marker based on location updates
+- Show current location Request Location Permissions Show info if denied
+- Add new markers on the fly with custom text
+- [APK Release](https://github.com/saravanabalagi/dorset_mobileApp2/releases/tag/week3)
