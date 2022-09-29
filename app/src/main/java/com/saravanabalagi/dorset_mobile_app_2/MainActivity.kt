@@ -1,8 +1,11 @@
 package com.saravanabalagi.dorset_mobile_app_2
 
+import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -15,6 +18,8 @@ import com.saravanabalagi.dorset_mobile_app_2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var map: GoogleMap
+    private val LOCATION_REQUEST_CODE = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -38,17 +43,70 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
+    private fun checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            enableLocation()
+            return
+        }
+        val permissions = arrayOf(
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION
+        )
+        requestPermissions(permissions, LOCATION_REQUEST_CODE)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun enableLocation() {
+        map.isMyLocationEnabled = true
+        map.uiSettings.isMyLocationButtonEnabled = true
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        when (requestCode) {
+            LOCATION_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty()) {
+                    if (grantResults[0] == PackageManager.PERMISSION_GRANTED ||
+                        grantResults[1] == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        enableLocation()
+                    } else Snackbar.make(
+                        binding.root,
+                        "Location features will not work",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+    }
+
     override fun onMapReady(gm: GoogleMap) {
+        map = gm
+
         val sydney = LatLng(-34.0, 151.0)
         val brisbane = LatLng(-27.383333, 153.118332)
 
-        gm.uiSettings.isZoomControlsEnabled = true
-        gm.uiSettings.isMapToolbarEnabled = false
-        gm.setOnMapClickListener { latLng ->
+        map.uiSettings.isZoomControlsEnabled = true
+        map.uiSettings.isMapToolbarEnabled = false
+        checkLocationPermission()
+
+        map.setOnMapClickListener { latLng ->
             val snackBar =
                 Snackbar.make(binding.root, "Do you want to add a marker?", Snackbar.LENGTH_LONG)
             snackBar.setAction("Add") {
-                gm.addMarker(
+                map.addMarker(
                     MarkerOptions()
                         .position(latLng)
                         .title(binding.mapMarkerEditText.text.toString())
@@ -58,17 +116,17 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             snackBar.show()
         }
 
-        gm.addMarker(
+        map.addMarker(
             MarkerOptions()
                 .position(sydney)
                 .title("Marker in Sydney")
         )
-        gm.addMarker(
+        map.addMarker(
             MarkerOptions()
                 .position(brisbane)
                 .title("Marker in Brisbane")
         )
 
-        gm.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10F))
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10F))
     }
 }
