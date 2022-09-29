@@ -39,10 +39,19 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(gm: GoogleMap) {
         val sydney = LatLng(-34.0, 151.0)
+        val brisbane = LatLng(-27.383333, 153.118332)
+
+        gm.uiSettings.isZoomControlsEnabled = true
         gm.addMarker(
             MarkerOptions()
             .position(sydney)
             .title("Marker in Sydney"))
+        gm.addMarker(
+            MarkerOptions()
+                .position(brisbane)
+                .title("Marker in Brisbane")
+        )
+
         gm.moveCamera(CameraUpdateFactory.newLatLng(sydney))
     }
 }
