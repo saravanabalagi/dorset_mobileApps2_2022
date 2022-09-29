@@ -10,6 +10,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.material.snackbar.Snackbar
 import com.saravanabalagi.dorset_mobile_app_2.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -42,16 +43,32 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         val brisbane = LatLng(-27.383333, 153.118332)
 
         gm.uiSettings.isZoomControlsEnabled = true
+        gm.uiSettings.isMapToolbarEnabled = false
+        gm.setOnMapClickListener { latLng ->
+            val snackBar =
+                Snackbar.make(binding.root, "Do you want to add a marker?", Snackbar.LENGTH_LONG)
+            snackBar.setAction("Add") {
+                gm.addMarker(
+                    MarkerOptions()
+                        .position(latLng)
+                        .title(binding.mapMarkerEditText.text.toString())
+                )
+                binding.mapMarkerEditText.setText("")
+            }
+            snackBar.show()
+        }
+
         gm.addMarker(
             MarkerOptions()
-            .position(sydney)
-            .title("Marker in Sydney"))
+                .position(sydney)
+                .title("Marker in Sydney")
+        )
         gm.addMarker(
             MarkerOptions()
                 .position(brisbane)
                 .title("Marker in Brisbane")
         )
 
-        gm.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        gm.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10F))
     }
 }

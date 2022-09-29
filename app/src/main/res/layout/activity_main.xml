@@ -29,10 +29,13 @@
         android:id="@+id/main_fragment"
         tools:layout="@layout/fragment_main" />
 
-    <TextView
-        android:text="@string/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/map_marker_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="Text to add to the marker"
+        android:inputType="text"
+        tools:ignore="LabelFor" />
 
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
