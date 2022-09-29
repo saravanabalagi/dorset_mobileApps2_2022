@@ -4,9 +4,11 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.commit
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -19,6 +21,13 @@ import com.saravanabalagi.dorset_mobile_app_2.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var map: GoogleMap
+    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+    private val locationRequest = LocationRequest.create().apply {
+        interval = 5000
+        smallestDisplacement = 100F
+        priority = Priority.PRIORITY_HIGH_ACCURACY
+    }
+
     private val LOCATION_REQUEST_CODE = 100
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +50,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             })
         }
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     private fun checkLocationPermission() {
@@ -67,6 +78,18 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun enableLocation() {
         map.isMyLocationEnabled = true
         map.uiSettings.isMyLocationButtonEnabled = true
+        val locationCallback = object : LocationCallback() {
+            override fun onLocationResult(p0: LocationResult) {
+                super.onLocationResult(p0)
+                for (location in p0.locations) {
+                    map.addMarker(
+                        MarkerOptions()
+                            .position(LatLng(location.latitude, location.longitude))
+                    )
+                }
+            }
+        }
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
     override fun onRequestPermissionsResult(
