@@ -21,10 +21,14 @@ class DatabaseActivity : AppCompatActivity() {
             // Insert new user
             userDao.insert(User(1, "Some name 1"))
             userDao.insert(User(2, "Some name 2"))
-            userDao.insert(User(3, "Some name 3"))
-            userDao.insert(User(4, "Some name 4"))
-            userDao.insert(User(5, "Some name 5"))
-            userDao.insert(User(6, "Some name 6"))
+
+            val usersToInsert = listOf(
+                User(3, "Some name 3"),
+                User(4, "Some name 4"),
+                User(5, "Some name 5"),
+                User(6, "Some name 6"),
+            )
+            userDao.insertList(usersToInsert)
 
             // Update user
             val userToUpdate = User(3, "Updated name 3")
