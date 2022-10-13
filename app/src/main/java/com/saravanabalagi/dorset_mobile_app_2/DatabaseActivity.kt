@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 class DatabaseActivity : AppCompatActivity() {
@@ -35,21 +36,30 @@ class DatabaseActivity : AppCompatActivity() {
 //        }
 
         // Update and delete ops
-        usersCollection.document("1").update("last", "Updated lastname")
-        usersCollection.document("5").delete()
-            .addOnSuccessListener {
-                Log.i(TAG, "Delete user 5 succeeded")
-            }
-            .addOnFailureListener {
-            Log.i(TAG, "Delete user 5 failed")
+//        usersCollection.document("1").update("last", "Updated lastname")
+//        usersCollection.document("5").delete()
+//            .addOnSuccessListener {
+//                Log.i(TAG, "Delete user 5 succeeded")
+//            }
+//            .addOnFailureListener {
+//            Log.i(TAG, "Delete user 5 failed")
+//        }
+
+        // Get
+        val userId = 3
+        usersCollection.document(userId.toString()).get().addOnSuccessListener {
+            val user = it.toObject<User>()
+            if (user != null)
+                Log.i(TAG, user.fname)
+            else Log.e(TAG, "User $userId is null")
         }
     }
 }
 
 class User(
-    var id: Int,
-    var fname: String,
-    var lname: String,
-    var born: Int,
+    var id: Int = -1,
+    var fname: String = "",
+    var lname: String = "",
+    var born: Int = -1,
 )
 
