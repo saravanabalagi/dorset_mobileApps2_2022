@@ -16,26 +16,38 @@ class DatabaseActivity : AppCompatActivity() {
         val usersCollection = db.collection("users")
 
         // Create a new user with a first and last name
-        val user1 = User("Ada1", "Lovelace", 1915)
-        val user2 = User("Ada2", "Lovelace", 1915)
-        val user3 = User("Ada3", "Lovelace", 1915)
-        val user4 = User("Ada4", "Lovelace", 1915)
-        val user5 = User("Ada5", "Lovelace", 1915)
+//        val user1 = User(1,"Ada1", "Lovelace", 1915)
+//        val user2 = User(2,"Ada2", "Lovelace", 1915)
+//        val user3 = User(3,"Ada3", "Lovelace", 1915)
+//        val user4 = User(4,"Ada4", "Lovelace", 1915)
+//        val user5 = User(5,"Ada5", "Lovelace", 1915)
+//
+//        arrayOf(user1, user2, user3, user4, user5).map { user ->
+//            val name = "${user.fname} ${user.lname}"
+//            usersCollection.document(user.id.toString())
+//                .set(user)
+//                .addOnSuccessListener {
+//                    Log.d(TAG, "User $name added with ID: ${user.id}")
+//                }
+//                .addOnFailureListener { e ->
+//                    Log.w(TAG, "Error adding user $name", e)
+//                }
+//        }
 
-        arrayOf(user1, user2, user3, user4, user5).map { user ->
-            val name = "${user.fname} ${user.lname}"
-            usersCollection.add(user)
-                .addOnSuccessListener { documentReference ->
-                    Log.d(TAG, "User $name added with ID: ${documentReference.id}")
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error adding user $name", e)
-                }
+        // Update and delete ops
+        usersCollection.document("1").update("last", "Updated lastname")
+        usersCollection.document("5").delete()
+            .addOnSuccessListener {
+                Log.i(TAG, "Delete user 5 succeeded")
+            }
+            .addOnFailureListener {
+            Log.i(TAG, "Delete user 5 failed")
         }
     }
 }
 
 class User(
+    var id: Int,
     var fname: String,
     var lname: String,
     var born: Int,
