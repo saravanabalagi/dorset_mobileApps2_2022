@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1028647483140",
+    "project_id": "dorset-mobile-app-2",
+    "storage_bucket": "dorset-mobile-app-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028647483140:android:6345254ad0e32a89bf0251",
+        "android_client_info": {
+          "package_name": "com.saravanabalagi.dorset_mobile_app_2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028647483140-023q29ei9dun76t4aie1fphubb924ipa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS03qqmSZE4k1Yn-rNvLtr3vUN2Wzslvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028647483140-023q29ei9dun76t4aie1fphubb924ipa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
