@@ -15,3 +15,16 @@ Mobile App developed as part of Dorset Mobile Applications 2 Course for BSc Year
 - Show current location Request Location Permissions Show info if denied
 - Add new markers on the fly with custom text
 - [APK Release](https://github.com/saravanabalagi/dorset_mobileApp2/releases/tag/week3)
+
+## Week 4: Local Database (Room / SQLite)
+- Room Database CRUD
+- InsertList Using DAO
+- Organizing files
+- Example Relationships - Embedding - One-to-one - One-to-many
+
+## Week 5: Remote Database (Firebase)
+- Delayed dbOps to debug using Database Inspector
+- Remove local db code
+- Link Firestore and insert users
+- Update and delete firestore ops
+- Get a record from firebase
