@@ -28,3 +28,12 @@ Mobile App developed as part of Dorset Mobile Applications 2 Course for BSc Year
 - Link Firestore and insert users
 - Update and delete firestore ops
 - Get a record from firebase
+
+## Week 6: Firebase Auth and Building Release App Bundle
+
+- Firebase auth sign up and sign in with email and password
+- Profiling the android app: CPU, Network, Memory, Energy
+- Create a new keystore 
+- Configure release build 
+- Generate an optimized minified release apk
+- [Signed Release App Bundle](https://github.com/saravanabalagi/dorset_mobileApp2/releases/tag/week6)
