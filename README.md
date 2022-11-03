@@ -37,3 +37,7 @@ Mobile App developed as part of Dorset Mobile Applications 2 Course for BSc Year
 - Configure release build 
 - Generate an optimized minified release apk
 - [Signed Release App Bundle](https://github.com/saravanabalagi/dorset_mobileApp2/releases/tag/week6)
+
+## Week 7: Cross Platform Mobile Apps
+- Web-based components vs Native components
+- Quickstart React Native app on Expo Go
