@@ -41,3 +41,10 @@ Mobile App developed as part of Dorset Mobile Applications 2 Course for BSc Year
 ## Week 7: Cross Platform Mobile Apps
 - Web-based components vs Native components
 - Quickstart React Native app on Expo Go
+
+## Week 8: Layered Visualization on Maps: Deck.gl
+- WebGL based layered map visualization using Deck.gl and ReactJS
+- Create a new ReactJS project and include Deck.GL
+- Create slider controls to vary properties of deckgl layers
+
+## Week 9: Revision Week
